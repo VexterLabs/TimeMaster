@@ -3,35 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TimeMaster</title>
+    <title>TimeMaster - Gestión del Tiempo Eficiente</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-        #clock {
-            font-size: 3em;
-            color: #333;
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        section {
+            padding: 2em;
+            margin: 1em 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .clock {
+            text-align: center;
+            margin: 2em 0;
+        }
+        .clock button {
+            padding: 0.5em 1em;
+            margin-top: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div id="clock"></div>
+    <header>
+        <h1>Bienvenido a TimeMaster</h1>
+        <p>La herramienta definitiva para la gestión eficiente del tiempo</p>
+    </header>
+
+    <section id="features">
+        <h2>Características</h2>
+        <ul>
+            <li>Programación de tareas</li>
+            <li>Seguimiento de proyectos</li>
+            <li>Alertas y recordatorios</li>
+            <li>Informes de productividad</li>
+        </ul>
+    </section>
+
+    <section id="clock">
+        <h2>Reloj</h2>
+        <div class="clock">
+            <p id="time"></p>
+            <button onclick="toggleTimeFormat()">Cambiar a formato 12 horas</button>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2>Testimonios</h2>
+        <blockquote>
+            <p>"TimeMaster ha transformado la manera en que gestiono mi tiempo. ¡Es increíble!"</p>
+            <cite>- Juan Pérez</cite>
+        </blockquote>
+        <blockquote>
+            <p>"Gracias a TimeMaster, mi equipo es más productivo que nunca."</p>
+            <cite>- María López</cite>
+        </blockquote>
+    </section>
+
+    <section id="contact">
+        <h2>Contacto</h2>
+        <form action="submit_form.php" method="post">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Mensaje:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2024 TimeMaster. Todos los derechos reservados.</p>
+    </footer>
 
     <script>
-        function updateClock() {
+        let is24HourFormat = true;
+
+        function updateTime() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            let period = '';
+
+            if (!is24HourFormat) {
+                period = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12;
+            }
+
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${period}`;
+            document.getElementById('time').textContent = timeString;
         }
-        setInterval(updateClock, 1000);
-        updateClock(); // Initial call to display clock immediately
+
+        function toggleTimeFormat() {
+            is24HourFormat = !is24HourFormat;
+            const button = document.querySelector('.clock button');
+            button.textContent = is24HourFormat ? 'Cambiar a formato 12 horas' : 'Cambiar a formato 24 horas';
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
     </script>
 </body>
 </html>

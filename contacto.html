@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botón de Contacto</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .contact-button {
+            background: linear-gradient(45deg, #ff6b6b, #f06595, #cc5de8, #845ef7, #5c7cfa, #339af0, #22b8cf, #20c997, #51cf66, #94d82d, #fcc419, #ff922b);
+            background-size: 300%;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-position 0.5s, transform 0.3s;
+            animation: gradient 3s infinite;
+        }
+        .contact-button:hover {
+            background-position: right;
+            transform: scale(1.1);
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <button class="contact-button" onclick="contactViaEmail()">Contactar vía Email</button>
+
+    <script>
+        function contactViaEmail() {
+            window.location.href = "mailto:ronaksenior@inbox.lv";
+        }
+    </script>
+</body>
+</html>
